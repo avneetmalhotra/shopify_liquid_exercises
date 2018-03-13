@@ -497,6 +497,8 @@ slate.Variants = (function() {
       this._updateMasterSelect(variant);
       this._updateImages(variant);
       this._updatePrice(variant);
+      this._updateQuantity(variant);
+      this._updateInventoryQuantity(variant);
       this._updateSKU(variant);
       this.currentVariant = variant;
 
@@ -535,6 +537,7 @@ slate.Variants = (function() {
      * @return {event} variantPriceChange
      */
     _updatePrice: function(variant) {
+      console.log(variant.price);
       if (
         variant.price === this.currentVariant.price &&
         variant.compare_at_price === this.currentVariant.compare_at_price
@@ -548,6 +551,29 @@ slate.Variants = (function() {
       });
     },
 
+    // Trigger event when variant quantity changes.
+
+    _updateQuantity: function(variant) {
+      if (variant.inventory_quantity === this.currentVariant.inventory_quantity) {
+        return;
+      }
+
+      this.$container.trigger({
+        type: 'variantQuantityChange',
+        variant: variant
+      });
+    },
+    _updateInventoryQuantity: function(variant) {
+      if (variant.inventory_quantity === this.currentVariant.inventory_quantity) {
+        return;
+      }
+
+      this.$container.trigger({
+        type: 'variantInventoryQuantityChange',
+        variant: variant
+      });
+    },
+
     /**
      * Trigger event when variant SKU changes.
      *
@@ -555,6 +581,7 @@ slate.Variants = (function() {
      * @return {event} variantSKUChange
      */
     _updateSKU: function(variant) {
+      console.log(variant.sku);
       if (variant.sku === this.currentVariant.sku) {
         return;
       }
