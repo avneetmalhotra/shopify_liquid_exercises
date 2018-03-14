@@ -216,7 +216,7 @@
 
           <table>
             <tr>
-              <th>Varient</th>
+              <th>Variant</th>
               <th>Quantity</th>
             </tr>
 
@@ -228,15 +228,12 @@
             {% endfor %}
           </table>
 
-          <h2 id="ProductQuantity" class="product-single__quantity" itemprop="quantity" content="{{ current_variant.inventory_quantity }}"> {{ current_variant.inventory_quantity }} </h2>
+          <h2 id="variant-inventory"> {{ current_variant.inventory_quantity }} </h2>
 
-          <h2 id="ProductInventoryQuantity" class="product-single__inventoryquantity" itemprop="inventory_quantity" content="{{ current_variant.inventory_quantity }}"> {{ current_variant.inventory_quantity }} </h2>
-
-          <h2 id="ProductSku" class="product-single__sku" itemprop="sku" content="{{ current_variant.sku }}"> {{ current_variant.sku }} </h2>
+          <h2 class="variant-sku"> {{ current_variant.sku }} </h2>
 
 
           <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-            <h2 id="ProductSKU" class="product-single__sku" itemprop="sku" content="{{ current_variant.sku }}"> {{ current_variant.sku }} </h2>
             {% comment %}
               Optionally show the 'compare at' or original price of the product.
             {% endcomment %}
