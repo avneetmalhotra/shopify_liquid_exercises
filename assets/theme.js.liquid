@@ -552,16 +552,11 @@ slate.Variants = (function() {
     // Trigger event when variant quantity changes.
 
     _updateVariantQuantity: function(variant) {
-      debugger
-      console.log(variant.inventory_quantity);
-      if (variant.inventory_quantity !== this.currentVariant.inventory_quantity) {
-        $('#variant-inventory').html(variant.inventory_quantity)
-      }
-
-      this.$container.trigger({
-        type: 'variantInventoryQuantityChange',
-        variant: variant
-      });
+      // refer script in product-template.liquid
+      if(inv_qty[variant.id] <= 0)
+        $('#variant-inventory').html('SOLD OUT');      
+      else
+        $('#variant-inventory').html('Remaining Quantity: ' + inv_qty[variant.id]);
     },
 
     /**
