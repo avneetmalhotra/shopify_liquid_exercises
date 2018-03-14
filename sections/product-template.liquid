@@ -214,21 +214,13 @@
 
           <h1 class="product-single__title" itemprop="name">{{ product.title }}</h1>
 
-          <table>
-            <tr>
-              <th>Varient</th>
-              <th>Quantity</th>
-            </tr>
-
-            {% for variant in product.variants %}
-              <tr>
-                <td>{{ variant.title }}</td>
-                <td>{{ variant.inventory_quantity }}</td>
-              </tr>
-            {% endfor %}
-          </table>
-
-          <h2> quantity: {{ current_variant.inventory_quantity }} </h2>
+          <h2 id="variant-inventory">
+            {% if current_variant.inventory_quantity <= 0 %}
+              SOLD OUT
+            {% else %}
+              Remaining Quantity: {{ current_variant.inventory_quantity }}
+            {% endif %}
+          </h2>
 
           <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
             {% comment %}
@@ -362,8 +354,12 @@
 
 </div>
 
-<script>console.log({{ current_variant | json }});</script>
-<script>console.log({{ current_variant.inventory_quantity | json }});</script>
+<script>
+  var inv_qty = {};
+  {% for variant in product.variants %}
+    inv_qty[{{ variant.id }}] = {{ variant.inventory_quantity | default: 0 }}
+  {% endfor %}
+</script>
 
 
 {% unless product.empty == empty %}

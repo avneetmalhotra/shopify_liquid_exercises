@@ -497,6 +497,7 @@ slate.Variants = (function() {
       this._updateMasterSelect(variant);
       this._updateImages(variant);
       this._updatePrice(variant);
+      this._updateVariantQuantity(variant);
       this._updateSKU(variant);
       this.currentVariant = variant;
 
@@ -546,6 +547,16 @@ slate.Variants = (function() {
         type: 'variantPriceChange',
         variant: variant
       });
+    },
+
+    // Trigger event when variant quantity changes.
+
+    _updateVariantQuantity: function(variant) {
+      // refer script in product-template.liquid
+      if(inv_qty[variant.id] <= 0)
+        $('#variant-inventory').html('SOLD OUT');      
+      else
+        $('#variant-inventory').html('Remaining Quantity: ' + inv_qty[variant.id]);
     },
 
     /**
